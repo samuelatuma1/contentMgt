@@ -12,7 +12,7 @@ async function adduser(req: Request< {}, {}, {email : string, password: string}>
     try{
         const errors: any = validationResult(req).array();
         if(errors.length > 0){
-            return res.json({"errors": errors})
+            return res.status(400).json({"errors": errors})
         }
         const user = await createUser(req)
         return res.json(user)

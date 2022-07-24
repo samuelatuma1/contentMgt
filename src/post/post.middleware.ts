@@ -1,5 +1,10 @@
 import {Request, Response, NextFunction} from "express";
 import {verify, JwtPayload} from "jsonwebtoken";
+import {body, ValidationChain } from "express-validator"
+
+const validatePostFormData: ValidationChain[] = [
+    body("post").trim().isLength({min: 1})
+]
 
 var processEnv: any = process.env
 
@@ -12,7 +17,7 @@ async function validateJWTToken(token: string){
     }
 }
 
-export async function validateToken(req: Request, res: Response, next: NextFunction){
+async function validateToken(req: Request, res: Response, next: NextFunction){
     try{
         const bearer: string | undefined = req.headers.authorization
         if(!bearer){
@@ -29,7 +34,7 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
             const userId = jwtToken.user_uuid
             
             // attach userId to res object
-            // res.locals.userId = userId
+            res.locals.userId = userId
             console.log(jwtToken)
             return next()
         }else{
@@ -40,3 +45,5 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
         return res.status(400).json({"error": "Error, no token"})
     }
 }
+
+export {validatePostFormData, validateToken}
