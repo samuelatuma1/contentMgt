@@ -59,4 +59,15 @@ async function deletePost(req: Request, res: Response){
         throw new Error("Delete Error")
     }
 }
-export {addPost, getPosts, updatePost, deletePost}
+
+async function getPost(req: Request, res: Response){
+    try{
+        const userId = res.locals.userId
+        return await Post.findOne({_id: req.params.postId, user: userId})
+
+    } catch(err){
+        console.log(err)
+        throw new Error("Retrieve Error")
+    }
+}
+export {addPost, getPosts, updatePost, deletePost, getPost}

@@ -1,5 +1,5 @@
-import {adduser, login} from "./user.controller";
-import {verifyUserDetails} from "./user.middleware"
+import {adduser, login, logout, allusers} from "./user.controller";
+import {verifyUserDetails, validateToken} from "./user.middleware"
 import {Router} from "express";
 
 const userRoute = Router()
@@ -9,5 +9,12 @@ userRoute.route("/signup")
 
 userRoute.route("/login")
     .post(verifyUserDetails, login)
+
+userRoute.route("/logout")
+    .get(validateToken, logout)
+userRoute.route("/users")
+    .get(allusers)
+
+
 
 export default userRoute

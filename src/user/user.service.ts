@@ -55,4 +55,12 @@ async function loginUser(req: Request){
     }
 }
 
-export {createUser, signToken, loginUser}
+async function allUsers(){
+    try{
+        return await User.where().select("-password")
+    } catch(err){
+        throw new Error("An error occured")
+    }
+}
+
+export {createUser, signToken, loginUser, allUsers}

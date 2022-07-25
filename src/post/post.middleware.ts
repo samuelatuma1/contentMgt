@@ -19,6 +19,9 @@ async function validateJWTToken(token: string){
 
 async function validateToken(req: Request, res: Response, next: NextFunction){
     try{
+        if(req.cookies.loggedout){
+            return res.status(400).json({"error": "User logged out"})
+        }
         const bearer: string | undefined = req.headers.authorization
         if(!bearer){
             return res.status(403).json({"error": "Error, no token"})

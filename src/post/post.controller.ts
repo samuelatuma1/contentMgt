@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import {validationResult} from "express-validator";
-import {addPost, getPosts, updatePost, deletePost} from "./post.service"
+import {addPost, getPosts, updatePost, deletePost, getPost} from "./post.service"
 /**
  * 
  */
@@ -17,7 +17,7 @@ async function addpost(req: Request, res: Response){
     }
 }
 
-async function getpost(req: Request, res: Response){
+async function getposts(req: Request, res: Response){
     try{
         const userPosts = await getPosts(res)
         return res.json({userPosts})
@@ -46,4 +46,13 @@ async function deletepost(req: Request<{postId: string}, {}, {}, {}>, res: Respo
     }
 }
 
-export {addpost, getpost,  updatepost, deletepost}
+async function getpost(req: Request<{postId: string}>, res: Response){
+    try{
+        const post = await getPost(req, res)
+        return res.status(200).json(post)
+    } catch(err){
+        return res.sendStatus(400)
+    }
+}
+
+export {addpost, getposts,  updatepost, deletepost, getpost}
