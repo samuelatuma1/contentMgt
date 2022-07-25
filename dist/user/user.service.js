@@ -70,7 +70,7 @@ async function loginUser(req) {
 exports.loginUser = loginUser;
 async function allUsers() {
     try {
-        return await user_model_1.User.find();
+        return await user_model_1.User.where().select("-password");
     }
     catch (err) {
         throw new Error("An error occured");

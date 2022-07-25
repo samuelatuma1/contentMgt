@@ -45,6 +45,11 @@ async function login(req, res) {
     }
 }
 exports.login = login;
+/**
+ * @method GET /api/v1/user/logout
+ * @ACCESS PRIVATE
+ * @desc logs out a signed in user, invalidates token
+ */
 async function logout(req, res) {
     try {
         // Add logout to res.cookie
@@ -56,6 +61,11 @@ async function logout(req, res) {
     }
 }
 exports.logout = logout;
+/**
+ * @method GET /api/v1/user/users
+ * @ACCESS PUBLIC
+ * @desc returns a list of all users
+ */
 async function allusers(req, res) {
     try {
         const users = await (0, user_service_1.allUsers)();
