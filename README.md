@@ -24,6 +24,11 @@
         "typescript": "^4.7.4"
     }
 
+## Environment Variables
+### Example
+    mongoDBURI = "mongodb+srv://<username>:<password>@cluster0.k7wdg.mongodb.net/?retryWrites=true&w=majority"
+    SECRET_KEY = "Some string"
+
 ## API Documentation
 
 ### Route /api/v1/user
